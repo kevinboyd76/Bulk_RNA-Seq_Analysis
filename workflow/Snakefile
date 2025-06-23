@@ -36,14 +36,21 @@ def fq_dict_from_sample(wildcards):
 
 rule all:
     input:
+        # Raw QC
         expand("results/qc/raw/fastqc/{sample}_R1_fastqc.html", sample=SAMPLES),
         expand("results/qc/raw/fastqc/{sample}_R2_fastqc.html", sample=SAMPLES),
         "results/qc/raw/multiqc/multiqc_report.html",
+        
+        # Trim R1 and R2 files
         expand("results/trimmed/{sample}_R1_trimmed.fastq.gz", sample=SAMPLES),
         expand("results/trimmed/{sample}_R2_trimmed.fastq.gz", sample=SAMPLES),
+        
+        # Trimmed QC
         expand("results/qc/trimmed/fastqc/{sample}_R1_trimmed_fastqc.html", sample=SAMPLES),
         expand("results/qc/trimmed/fastqc/{sample}_R2_trimmed_fastqc.html", sample=SAMPLES),
         "results/qc/trimmed/multiqc/multiqc_report.html",
+        
+        # Alignment and Index
         expand("results/aligned/{sample}.sorted.bam", sample=SAMPLES),
         expand("results/aligned/{sample}.sorted.bam.bai", sample=SAMPLES)
 
