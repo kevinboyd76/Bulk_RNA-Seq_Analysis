@@ -5,9 +5,13 @@ __default__:
   time: "08:00:00"
   cpus-per-task: 2
   mem: "16G"
-  output: logs/slurm-%x.%A.%a.log
-  error: logs/slurm-%x.%A.%a.err
+  name: "{rule}.{wildcards.sample}"
+  output: logs/{rule}.{wildcards.sample}.out
+  error: logs/{rule}.{wildcards.sample}.err
 
+# ------------------------------------------------------------------------------
+# Raw Quality Control
+# ------------------------------------------------------------------------------
 fastqc_raw:
   time: "00:30:00"
   cpus-per-task: 1
@@ -17,12 +21,35 @@ multiqc_raw:
   time: "00:15:00"
   cpus-per-task: 1
   mem: "2G"
+  output: logs/{rule}.out
+  error: logs/{rule}.err
 
+# ------------------------------------------------------------------------------
+# Adapter Trimming with Cutadapt
+# ------------------------------------------------------------------------------
 trim_adapters:
   time: "01:00:00"
   cpus-per-task: 2
   mem: "8G"
 
+# ------------------------------------------------------------------------------
+# Trimmed Quality Control
+# ------------------------------------------------------------------------------
+fastqc_trimmed:
+  time: "00:30:00"
+  cpus-per-task: 1
+  mem: "4G"
+
+multiqc_trimmed:
+  time: "00:15:00"
+  cpus-per-task: 1
+  mem: "2G"
+  output: logs/{rule}.out
+  error: logs/{rule}.err
+  
+# ------------------------------------------------------------------------------
+# Alignment with Hisat2
+# ------------------------------------------------------------------------------
 align_hisat2:
   time: "04:00:00"
   cpus-per-task: 8
