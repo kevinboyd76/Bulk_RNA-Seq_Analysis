@@ -2,48 +2,22 @@
 samples_csv: "config/samples.csv"
 
 # ==============================================================================
-# ADAPTER FILE (BBDuk)
+# ADAPTER FILE (Cutadapt)
 # ==============================================================================
-bbmap_ref: "/hpc-prj/donczew/genomic_resources/bbmap/truseq_universal_adapters.fa"
+TruSeq3_Adapters: "/resources/truseq_universal_adapters.fa"
 
 # ==============================================================================
-# FASTP PARAMETERS
+# HISAT2 GENOME
 # ==============================================================================
-umi_loc: "read2"
-umi_len: 12
+# Primary genome = GRCz11
+Hisat2_Index: "/hpc-prj/cobre-dev-bio/boydk/reference_info/hisat2_index/GRCz11"
 
-# ==============================================================================
-# GENOME and BED Files Path
-# ==============================================================================
-# Primary (no spike-in) genome = S. cerevisiae
-scer_genome: "/hpc-prj/donczew/genomic_resources/Scerevisiae_GCF_000146045.2/SGD_R64-3-1_genome.fna" # Genome reference for SLAMDUNK
-bed_file: "/hpc-prj/donczew/genomic_resources/Scerevisiae_GCF_000146045.2/Scerevisiae_R64-3-1_gene3utr.bed" # Gene + 3-prime UTR BED file
-
-# Default spike-in genome = S. pombe
-spikein_genome: "/hpc-prj/donczew/genomic_resources/Spombe_GCF_000002945.1/NCBI_ASM294v2_genome_bowtie2_index/NCBI_ASM294v2_genome"
-
-# ==============================================================================
-# SLAMDUNK PARAMETERS
-# ==============================================================================
-trim_5p: 5
-topn: 100
-multimap: true
-min_coverage: 10
-var_fraction: 0.8
-max_read_length: 151
-min_base_qual: 26
-skip_sam: true
 
 # ==============================================================================
 # SOFTWARE MODULE VERSIONS
 # ==============================================================================
 fastqc: "fastqc/0.12.1"
 multiqc: "multiqc/1.21"
-fastp: "fastp/0.23.2"
-bbmap: "bbmap/39.06"
-slamdunk: "slamdunk/0.4.3"
-nextgenmap: "nextgenemap/0.5.5"
+cutadapt: "cutadapt/5.0"
+hisat2: "hisat2/2.2.1"
 samtools: "samtools/1.18"
-python: "python/3.10.2"
-R: "R/4.4.1-mkl"
-varscan: "varscan/2.4.5"
