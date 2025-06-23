@@ -1,0 +1,9 @@
+# cluster_config.yml - cluster configuration
+__default__:
+  account: sansam-lab
+  partition: serial
+  time: "08:00:00"
+  cpus-per-task: 2
+  mem: "16G"
+  output: logs/slurm-%x.%A.%a.log
+  error: logs/slurm-%x.%A.%a.err
