@@ -1,3 +1,16 @@
+configfile: "config/config.yml"
+
+##################################################################
+##                         Author Info                          ##
+##################################################################
+
+# Author: Kevin A. Boyd
+# Email: kevinboyd76@gmail.com
+# GitHub: https://github.com/kevinboyd76
+# Date Created: June 23, 2025
+# Last Modified: June 23, 2025
+# Version: 1.0.0
+
 ##################################################################
 ##                    Define input functions                    ##
 ##################################################################
@@ -46,11 +59,12 @@ rule fastqc_raw:
         html2="results/qc/raw/fastqc/{sample}_R2_fastqc.html",
         zip1 ="results/qc/raw/fastqc/{sample}_R1_fastqc.zip",
         zip2 ="results/qc/raw/fastqc/{sample}_R2_fastqc.zip"
+    envmodules:
+        config["fastqc"]
     log:
         "results/logs/fastqc/{sample}_raw.log"
     shell:
         """
-        mkdir -p results/qc/raw/fastqc
         fastqc -o results/qc/raw/fastqc {input.r1} {input.r2} 2> {log}
         """
 
@@ -66,12 +80,12 @@ rule multiqc_raw:
         "results/qc/raw/multiqc/multiqc_report.html"
     params:
         outdir="results/qc/raw/multiqc"
+    envmodules:
+        config["multiqc"]
     log:
         "results/logs/multiqc/multiqc_raw.log"
     shell:
         """
-        rm -rf {params.outdir}
-        mkdir -p {params.outdir}
         multiqc results/qc/raw/fastqc -o {params.outdir} 2> {log}
         """
 
@@ -86,12 +100,13 @@ rule trim_adapters:
         r1_trim="results/trimmed/{sample}_R1_trimmed.fastq.gz",
         r2_trim="results/trimmed/{sample}_R2_trimmed.fastq.gz"
     params:
-        adapters="/usr/local/analysis/trimmomatic/0.35/lib/adapters/TruSeq3-PE-2.fa"
+        adapters=congif["TruSeq3_Adapters"]
+    envmodules:
+        config["cutadapt"]
     log:
         "results/logs/trim/{sample}.log"
     shell:
         """
-        mkdir -p results/trimmed
         cutadapt \
             -a file:{params.adapters} \
             -A file:{params.adapters} \
@@ -113,11 +128,12 @@ rule fastqc_trimmed:
         html4="results/qc/trimmed/fastqc/{sample}_R2_trimmed_fastqc.html",
         zip3 ="results/qc/trimmed/fastqc/{sample}_R1_trimmed_fastqc.zip",
         zip4 ="results/qc/trimmed/fastqc/{sample}_R2_trimmed_fastqc.zip"
+    envmodules:
+        config["fastqc"]
     log:
         "results/logs/fastqc/{sample}_trimmed.log"
     shell:
         """
-        mkdir -p results/qc/trimmed/fastqc
         fastqc -o results/qc/trimmed/fastqc {input.r1_trim} {input.r2_trim} 2> {log}
         """
 
@@ -133,12 +149,12 @@ rule multiqc_trimmed:
         "results/qc/trimmed/multiqc/multiqc_report.html"
     params:
         outdir="results/qc/trimmed/multiqc"
+    envmodules:
+        config["multiqc"]
     log:
         "results/logs/multiqc/multiqc_trimmed.log"
     shell:
         """
-        rm -rf {params.outdir}
-        mkdir -p {params.outdir}
         multiqc results/qc/trimmed/fastqc -o {params.outdir} 2> {log}
         """
 
@@ -154,14 +170,13 @@ rule align_hisat2:
         bam="results/aligned/{sample}.sorted.bam",
         bai="results/aligned/{sample}.sorted.bam.bai"
     params:
-        index="/s/cobre-dev-bio/boydk/Varshney_Lab/hisat2_index/GRCz11"
+        index=config["Hisat2_Index"]
+    envmodules:
+        config["hisat2"]
     log:
         "results/logs/alignment/{sample}.log"
     shell:
         """
-        mkdir -p results/aligned
-        mkdir -p results/logs/alignment
-
         hisat2 -p 8 \
             -x {params.index} \
             -1 {input.r1_trim} \
@@ -170,5 +185,4 @@ rule align_hisat2:
 
         samtools sort -@ 8 -o {output.bam} results/aligned/{wildcards.sample}.sam
         samtools index {output.bam}
-        rm results/aligned/{wildcards.sample}.sam
         """
