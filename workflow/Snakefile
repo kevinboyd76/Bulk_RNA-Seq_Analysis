@@ -100,7 +100,7 @@ rule trim_adapters:
         r1_trim="results/trimmed/{sample}_R1_trimmed.fastq.gz",
         r2_trim="results/trimmed/{sample}_R2_trimmed.fastq.gz"
     params:
-        adapters=congif["TruSeq3_Adapters"]
+        adapters=config["TruSeq3_Adapters"]
     envmodules:
         config["cutadapt"]
     log:
@@ -172,7 +172,8 @@ rule align_hisat2:
     params:
         index=config["Hisat2_Index"]
     envmodules:
-        config["hisat2"]
+        config["hisat2"],
+        config["samtools]
     log:
         "results/logs/alignment/{sample}.log"
     shell:
