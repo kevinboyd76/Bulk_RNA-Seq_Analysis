@@ -54,7 +54,10 @@ rule all:
         
         # Alignment and Index
         expand("results/aligned/{sample}.sorted.bam", sample=SAMPLES),
-        expand("results/aligned/{sample}.sorted.bam.bai", sample=SAMPLES)
+        expand("results/aligned/{sample}.sorted.bam.bai", sample=SAMPLES),
+
+        # Quantification
+        expand("results/counts/{sample}.counts.txt", sample=SAMPLES)
 
 ##################################################################
 ##                     FastQC on Raw Fastqs                     ##
@@ -230,6 +233,5 @@ rule featurecounts:
         "results/logs/counts/{sample}.log"
     shell:
         """
-        mkdir -p results/counts
         featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.counts} {input.bam} 2> {log}
         """
