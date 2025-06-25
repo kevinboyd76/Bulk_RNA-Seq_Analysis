@@ -21,6 +21,7 @@ multiqc_raw:
   time: "00:15:00"
   cpus-per-task: 1
   mem: "2G"
+  name: "{rule}"
   output: logs/{rule}.out
   error: logs/{rule}.err
 
@@ -44,6 +45,7 @@ multiqc_trimmed:
   time: "00:15:00"
   cpus-per-task: 1
   mem: "2G"
+  name: "{rule}"
   output: logs/{rule}.out
   error: logs/{rule}.err
   
