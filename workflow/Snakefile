@@ -44,6 +44,8 @@ rule all:
         # Trim R1 and R2 files
         expand("results/trimmed/{sample}_R1_trimmed.fastq.gz", sample=SAMPLES),
         expand("results/trimmed/{sample}_R2_trimmed.fastq.gz", sample=SAMPLES),
+        expand("results/trimmed/{sample}_fastp.html", sample=SAMPLES),
+        expand("results/trimmed/{sample}_fastp.json", sample=SAMPLES),
         
         # Trimmed QC
         expand("results/qc/trimmed/fastqc/{sample}_R1_trimmed_fastqc.html", sample=SAMPLES),
@@ -105,6 +107,7 @@ rule multiqc_raw:
         multiqc results/qc/raw/fastqc -o {params.outdir} 2> {log}
         """
 
+
 ##################################################################
 ##                      Adapter Trimming                        ##
 ##################################################################
@@ -114,21 +117,27 @@ rule trim_adapters:
         unpack(fq_dict_from_sample)
     output:
         r1_trim="results/trimmed/{sample}_R1_trimmed.fastq.gz",
-        r2_trim="results/trimmed/{sample}_R2_trimmed.fastq.gz"
-    params:
-        adapters=config["TruSeq3_Adapters"]
+        r2_trim="results/trimmed/{sample}_R2_trimmed.fastq.gz",
+        html="results/trimmed/{sample}_fastp.html",
+        json="results/trimmed/{sample}_fastp.json"
     envmodules:
-        config["cutadapt"]
+        config["fastp"]
     log:
         "results/logs/trim/{sample}.log"
     shell:
         """
-        cutadapt \
-            --adapter-file {params.adapters} \
-            -o {output.r1_trim} \
-            -p {output.r2_trim} \
-            {input.r1} {input.r2} 2> {log}
+        mkdir -p results/trimmed
+        fastp \
+            --in1 {input.r1} \
+            --in2 {input.r2} \
+            --out1 {output.r1_trim} \
+            --out2 {output.r2_trim} \
+            --html {output.html} \
+            --json {output.json} \
+            --thread {threads} \
+            2> {log}
         """
+
 
 ##################################################################
 ##                   FastQC on Trimmed Fastqs                   ##
