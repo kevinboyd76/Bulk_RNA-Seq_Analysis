@@ -122,8 +122,7 @@ rule trim_adapters:
     shell:
         """
         cutadapt \
-            -a file:{params.adapters} \
-            -A file:{params.adapters} \
+            --adapter-file {params.adapters} \
             -o {output.r1_trim} \
             -p {output.r2_trim} \
             {input.r1} {input.r2} 2> {log}
