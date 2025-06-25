@@ -15,7 +15,7 @@ Hisat2_Index: "/hpc-prj/cobre-dev-bio/boydk/reference_info/hisat2_index/GRCz11"
 # ==============================================================================
 # HISAT2 GENOME
 # ==============================================================================
-Annotation_GTF: "/s/cobre-dev-bio/boydk/Varshney_Lab/genomic_resources/ncbi_dataset/data/GCF_000002035.6"
+Annotation_GTF: "/s/cobre-dev-bio/boydk/Varshney_Lab/genomic_resources/ncbi_dataset/data/GCF_000002035.6/genomic.gtf"
 
 # ==============================================================================
 # SOFTWARE MODULE VERSIONS
