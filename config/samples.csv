@@ -1,7 +1,7 @@
 sample,fastq1,fastq2,sample_type
 T1,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T1_S170_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T1_S170_R2_001.fastq.gz,Control
 T2,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T2_S171_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T2_S171_R2_001.fastq.gz,Control
-T3,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T3_S172_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T3_S172_R1_001.fastq.gz,Control
+T3,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T3_S172_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/T3_S172_R2_001.fastq.gz,Control
 Homo1,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo1_S167_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo1_S167_R2_001.fastq.gz,Treatment
 Homo2,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo2_S168_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo2_S168_R2_001.fastq.gz,Treatment
 Homo3,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo3_S169_R1_001.fastq.gz,/archive/varshneyg/sequence-fastq/YARS1-RNAsq/22VHTMLT4/Homo3_S169_R2_001.fastq.gz,Treatment
