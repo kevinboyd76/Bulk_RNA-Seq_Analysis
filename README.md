@@ -3,7 +3,7 @@
 # 3) Instructions to run on Slurm managed HPC
 3A. Download version controlled repository
 ```
-git clone https://github.com/RD-Cobre-Help/SLAM-Seq_Analysis.git
+git clone https://github.com/kevinboyd76/Bulk_RNA-Seq_Analysis.git
 ```
 3B. Load modules
 ```
