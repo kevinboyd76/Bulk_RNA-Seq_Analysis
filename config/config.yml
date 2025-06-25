@@ -7,11 +7,15 @@ samples_csv: "config/samples.csv"
 TruSeq3_Adapters: "/resources/truseq_universal_adapters.fa"
 
 # ==============================================================================
-# HISAT2 GENOME
+# HISAT2 ALIGNMENT
 # ==============================================================================
 # Primary genome = GRCz11
 Hisat2_Index: "/hpc-prj/cobre-dev-bio/boydk/reference_info/hisat2_index/GRCz11"
 
+# ==============================================================================
+# HISAT2 GENOME
+# ==============================================================================
+Annotation_GTF: "/s/cobre-dev-bio/boydk/Varshney_Lab/genomic_resources/ncbi_dataset/data/GCF_000002035.6"
 
 # ==============================================================================
 # SOFTWARE MODULE VERSIONS
