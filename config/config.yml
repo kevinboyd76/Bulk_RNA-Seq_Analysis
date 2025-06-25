@@ -18,6 +18,6 @@ Hisat2_Index: "/hpc-prj/cobre-dev-bio/boydk/reference_info/hisat2_index/GRCz11"
 # ==============================================================================
 fastqc: "fastqc/0.12.1"
 multiqc: "multiqc/1.21"
-cutadapt: "cutadapt/5.0"
+fastp: "fastp/0.23.4"
 hisat2: "hisat2/2.2.1"
 samtools: "samtools/1.18"
