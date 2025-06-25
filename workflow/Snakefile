@@ -221,7 +221,7 @@ rule featurecounts:
     input:
         bam="results/aligned/{sample}.sorted.bam"
     output:
-        count="results/counts/{sample}.counts.txt"
+        counts="results/counts/{sample}.counts.txt"
     params:
         gtf=config["Annotation_GTF"]
     envmodules:
@@ -231,5 +231,5 @@ rule featurecounts:
     shell:
         """
         mkdir -p results/counts
-        featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.count} {input.bam} 2> {log}
+        featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.counts} {input.bam} 2> {log}
         """
