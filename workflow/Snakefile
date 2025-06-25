@@ -134,7 +134,7 @@ rule trim_adapters:
             --out2 {output.r2_trim} \
             --html {output.html} \
             --json {output.json} \
-            --thread {threads} \
+            --thread 4 \
             2> {log}
         """
 
@@ -183,7 +183,7 @@ rule multiqc_trimmed:
         """
 
 ##################################################################
-##                         HISAT2 Alignment                     ##
+##                       HISAT2 Alignment                       ##
 ##################################################################
 
 rule align_hisat2:
@@ -210,4 +210,26 @@ rule align_hisat2:
 
         samtools sort -@ 8 -o {output.bam} results/aligned/{wildcards.sample}.sam
         samtools index {output.bam}
+        """
+
+
+##################################################################
+##                       Feature Counts                         ##
+##################################################################
+
+rule featurecounts:
+    input:
+        bam="results/aligned/{sample}.sorted.bam"
+    output:
+        count="results/counts/{sample}.counts.txt"
+    params:
+        gtf=config["Annotation_GTF"]
+    envmodules:
+        config["subread"]
+    log:
+        "results/logs/counts/{sample}.log"
+    shell:
+        """
+        mkdir -p results/counts
+        featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.count} {input.bam} 2> {log}
         """
