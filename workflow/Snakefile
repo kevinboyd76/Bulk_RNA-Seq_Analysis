@@ -72,7 +72,14 @@ rule fastqc_raw:
         "results/logs/fastqc/{sample}_raw.log"
     shell:
         """
+        mkdir -p results/qc/raw/fastqc
+
         fastqc -o results/qc/raw/fastqc {input.r1} {input.r2} 2> {log}
+
+        mv results/qc/raw/fastqc/$(basename {input.r1} .fastq.gz)_fastqc.html {output.html1}
+        mv results/qc/raw/fastqc/$(basename {input.r1} .fastq.gz)_fastqc.zip {output.zip1}
+        mv results/qc/raw/fastqc/$(basename {input.r2} .fastq.gz)_fastqc.html {output.html2}
+        mv results/qc/raw/fastqc/$(basename {input.r2} .fastq.gz)_fastqc.zip {output.zip2}
         """
 
 ##################################################################
