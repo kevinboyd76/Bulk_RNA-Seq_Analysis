@@ -248,6 +248,9 @@ rule merge_counts:
     output:
         "results/counts/merged_counts.csv"
     run:
+
+        import pandas as pd
+
         dfs = []
         for f in input:
             sample = f.split("/")[-1].replace(".counts.txt", "")
