@@ -250,6 +250,8 @@ rule merge_counts:
     log:
         "results/logs/counts/merge_counts.log"
     run:
+        import pandas as pd
+
         dfs = []
         for f in input:
             sample = f.split("/")[-1].replace(".counts.txt", "")
