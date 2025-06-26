@@ -58,9 +58,17 @@ align_hisat2:
   mem: "32G"
 
 # ------------------------------------------------------------------------------
-# Feature Count
+# Feature Count and Merge Featrue Counts
 # ------------------------------------------------------------------------------
 featurecounts:
   time: "01:00:00"
   cpus-per-task: 4
   mem: "8G"
+
+merge_counts:
+  time: "00:15:00"
+  cpus-per-task: 1
+  mem: "8G"
+  name: "{rule}"
+  output: logs/{rule}.out
+  error: logs/{rule}.err
