@@ -56,8 +56,9 @@ rule all:
         expand("results/aligned/{sample}.sorted.bam", sample=SAMPLES),
         expand("results/aligned/{sample}.sorted.bam.bai", sample=SAMPLES),
 
-        # Quantification
-        expand("results/counts/{sample}.counts.txt", sample=SAMPLES)
+        # Quantification and Merging Counts
+        expand("results/counts/{sample}.counts.txt", sample=SAMPLES),
+        "results/counts/merged_counts.csv"
 
 ##################################################################
 ##                     FastQC on Raw Fastqs                     ##
@@ -234,4 +235,31 @@ rule featurecounts:
     shell:
         """
         featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.counts} {input.bam} 2> {log}
+        """
+
+
+##################################################################
+##                        Merge Counts                          ##
+##################################################################
+
+rule merge_counts:
+    input:
+        expand("results/counts/{sample}.counts.txt", sample=SAMPLES)
+    output:
+        "results/counts/merged_counts.csv"
+    shell:
+        """
+        dfs = []
+        for f in input:
+            sample = f.split("/")[-1].replace(".counts.txt", "")
+            df = pd.read_csv(f, sep="\t", comment="#", usecols=[0, -1])  # Get geneid and last column (counts)
+            df.columns = ["Geneid", sample]
+            dfs.append(df)
+
+        # Merge on Geneid
+        merged = dfs[0]
+        for df in dfs[1:]:
+            merged = merged.merge(df, on="Geneid")
+
+        merged.to_csv(output[0], sep=",", index=False)
         """
