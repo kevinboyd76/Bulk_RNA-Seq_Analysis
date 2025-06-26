@@ -75,7 +75,7 @@ rule fastqc_raw:
     envmodules:
         config["fastqc"]
     log:
-        "results/logs/fastqc/{sample}_raw.log"
+        "results/logs/fastqc/{sample}_fastqc_raw.log"
     shell:
         """
         fastqc -o results/qc/raw/fastqc {input.r1} {input.r2} 2> {log}
@@ -127,7 +127,7 @@ rule trim_adapters:
     envmodules:
         config["fastp"]
     log:
-        "results/logs/trim/{sample}.log"
+        "results/logs/trim/{sample}_trimmed.log"
     shell:
         """
         mkdir -p results/trimmed
@@ -159,7 +159,7 @@ rule fastqc_trimmed:
     envmodules:
         config["fastqc"]
     log:
-        "results/logs/fastqc/{sample}_trimmed.log"
+        "results/logs/fastqc/{sample}_fastqc_trimmed.log"
     shell:
         """
         fastqc -o results/qc/trimmed/fastqc {input.r1_trim} {input.r2_trim} 2> {log}
@@ -203,7 +203,7 @@ rule align_hisat2:
         config["hisat2"],
         config["samtools"]
     log:
-        "results/logs/alignment/{sample}.log"
+        "results/logs/alignment/{sample}_aligned.log"
     shell:
         """
         hisat2 -p 8 \
@@ -231,7 +231,7 @@ rule featurecounts:
     envmodules:
         config["subread"]
     log:
-        "results/logs/counts/{sample}.log"
+        "results/logs/counts/{sample}_featureCount.log"
     shell:
         """
         featureCounts -T 4 -p -t exon -g gene_id -a {params.gtf} -o {output.counts} {input.bam} 2> {log}
@@ -247,6 +247,8 @@ rule merge_counts:
         expand("results/counts/{sample}.counts.txt", sample=SAMPLES)
     output:
         "results/counts/merged_counts.csv"
+    log:
+        "results/logs/counts/merge_counts.log"
     run:
         dfs = []
         for f in input:
