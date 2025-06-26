@@ -66,7 +66,7 @@ featurecounts:
   mem: "8G"
 
 merge_counts:
-  time: "00:15:00"
+  time: "00:30:00"
   cpus-per-task: 1
   mem: "8G"
   name: "{rule}"
