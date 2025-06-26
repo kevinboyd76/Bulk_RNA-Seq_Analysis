@@ -247,8 +247,7 @@ rule merge_counts:
         expand("results/counts/{sample}.counts.txt", sample=SAMPLES)
     output:
         "results/counts/merged_counts.csv"
-    shell:
-        """
+    run:
         dfs = []
         for f in input:
             sample = f.split("/")[-1].replace(".counts.txt", "")
@@ -262,4 +261,3 @@ rule merge_counts:
             merged = merged.merge(df, on="Geneid")
 
         merged.to_csv(output[0], sep=",", index=False)
-        """
