@@ -255,7 +255,8 @@ rule merge_counts:
         dfs = []
         for f in input:
             sample = f.split("/")[-1].replace(".counts.txt", "")
-            df = pd.read_csv(f, sep="\t", comment="#", usecols=["Geneid", df.columns[-1]])  # Get geneid and last column (counts)
+            df = pd.read_csv(f, sep="\t", comment="#")
+            df = df[["Geneid", df.columns[-1]]]
             df.columns = ["Geneid", sample]
             dfs.append(df)
 
