@@ -7,7 +7,7 @@
 
 ## 1) Project Description
 
-**Bulk RNA-seq Alignment & Quantification Snakemake Workflow** is a reproducible Snakemake pipeline that automates the complete RNA-seq data processing workflow: **quality control**, **adapter trimming**, **alignment**, and **read quantification** with merged counts. Instead of running each step manually, the pipeline executes all tasks in a robust and modular fashion, from **raw FASTQ** inputs to **merged gene-level count matrices**, ready for downstream differential expression analysis. This pipeline takes raw FASTQs and outputs individual sample counts files and a single merged counts file. 
+**Bulk RNA-seq Analysis** is a reproducible Snakemake pipeline that automates the complete RNA-seq data processing workflow: **quality control**, **adapter trimming**, **alignment**, and **read quantification** with merged counts. Instead of running each step manually, the pipeline executes all tasks in a robust and modular fashion, from **raw FASTQ** inputs to **merged gene-level count matrices**, ready for downstream differential expression analysis. This pipeline takes raw FASTQs and outputs individual sample counts files and a single merged counts file. 
 
 ### Key Features
 
