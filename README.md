@@ -1,5 +1,8 @@
 # Bulk_RNA-Seq_Analysis
 
+![RNA-seq](/images/Bulk_RNA-seq.png)  
+- OpenAI. (2025). Scientific data visualization: RNA-seq pipeline schematic [AI-generated image]. DALL-E. Retrieved from ChatGPT interface.
+  
 ---
 
 ## 1) Project Description
