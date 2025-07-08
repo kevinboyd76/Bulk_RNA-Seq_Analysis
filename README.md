@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1007354526.svg)](https://doi.org/10.5281/zenodo.15838940)
+
 # Bulk_RNA-Seq_Analysis
 
 ![RNA-seq](/images/Bulk_RNA-seq.png)  
